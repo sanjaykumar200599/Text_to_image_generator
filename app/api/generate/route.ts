@@ -1,10 +1,14 @@
 import { OpenAI } from 'openai';
 import { NextResponse } from 'next/server';
 
+
+export const dynamic ='force-dynamic';
+
 const client = new OpenAI({
   baseURL: 'https://api.studio.nebius.com/v1/',
-  apiKey: process.env.NEBIUS_API_KEY,
+  apiKey: process.env.NEBUIS_API_KEY,
 });
+
 
 export async function POST(req: Request) {
   try {
@@ -19,7 +23,7 @@ export async function POST(req: Request) {
 
     const response = await client.images.generate({
       model: 'black-forest-labs/flux-dev',
-      response_format: 'b64_json',
+      response_format: 'url',
       extra_body: {
         response_extension: 'webp',
         width: 1024,
@@ -31,7 +35,7 @@ export async function POST(req: Request) {
       prompt: prompt,
     });
 
-    console.log('Image generated ', response.data[0].url);
+    console.log('Image generated ', response);
 
     return NextResponse.json({ imageUrl: response.data[0].url });
   } catch (error) {

@@ -39,7 +39,7 @@ export default function Home() {
         throw new Error(data.error || "Failed to generate image");
       }
 
-      setImage(data.imageUrl);
+      setImage(`${data.imageUrl}`);
     } catch (error) {
       toast({
         title: "Error",
